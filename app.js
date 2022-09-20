@@ -66,13 +66,13 @@ keys.forEach(key => {
   keyboard.append(buttonElement);
 })
 
-function handleClick(key)) {
+function handleClick(key) {
   console.log('clicked', key);
-  // addLetter(letter);
+  addLetter(key);
 }
 
-// function addLetter(letter) {
-//   console.log("letter added");
-//   const selectedTile = document.getElementById('guessRow-' + currentRow '-tile-' + currentTile);
-//   selectedTile.textContent = letter;
-// }
+function addLetter(letter) {
+  console.log("letter added");
+  const selectedTile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile);
+  selectedTile.textContent = letter;
+}
