@@ -84,10 +84,10 @@ body {
   border: none !important;
 }
 .yellow-overlay {
-  background-color: #b59f3a;
+  background-color: #b59f3a !important;
   border: none !important;
 }
 .green-overlay {
-  background-color:#538d4e;
+  background-color:#538d4e !important;
   border: none !important;
 }

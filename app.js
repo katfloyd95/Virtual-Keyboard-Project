@@ -135,6 +135,12 @@ function showMessage(message) {
   setTimeout(() => messageDisplay.removeChild(messageElement), 2000);
 }
 
+function addColorToKey(keyLetter, color) {
+  const key = document.getElementById(keyLetter);
+  console.log(key);
+  key.classList.add(color);
+}
+
 function flipTile() {
   const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes;
   
@@ -145,8 +151,10 @@ function flipTile() {
       tile.classList.add('flip');
       if (dataLetter == wordle[index]) {
         tile.classList.add('green-overlay');
+        addColorToKey(dataLetter, 'green-overlay');
       } else if (wordle.includes(dataLetter)) {
         tile.classList.add('yellow-overlay');
+        addColorToKey(dataLetter, 'yellow-overlay');
       } else {
         tile.classList.add('grey-overlay');
       }
