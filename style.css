@@ -57,4 +57,11 @@ body {
 }
 .message-container {
   height: 30px;
+  margin-top: 15px;
+}
+.message-container p {
+  background-color: rgb(55, 186, 55);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0;
 }

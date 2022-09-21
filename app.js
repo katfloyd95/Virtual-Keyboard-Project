@@ -1,5 +1,6 @@
 const tileDisplay = document.querySelector('.tile-container');
 const keyboard = document.querySelector('.keyboard-container');
+const messageDisplay = document.querySelector('.message-container');
 
 const wordle = "SUPER";
 
@@ -74,7 +75,7 @@ function handleClick(key) {
     return;
   }
   if (key === 'ENTER') {
-    console.log('check row');
+    checkRow();
     console.log('guessRows', guessRows);
     return;
   }
@@ -100,4 +101,21 @@ function deleteLetter() {
     guessRows[currentRow][currentTile] = '';
     selectedTile.setAttribute("data", '');
   }
+}
+
+function checkRow() {
+  const guess = guessRows[currentRow].join('');
+
+  if (currentTile === 5) {
+    console.log('guess is ' + guess, 'wordle is ' + wordle);
+    if (wordle == guess) {
+      showMessage('Correct!');
+    }
+  }
+}
+
+function showMessage(message) {
+  const messageElement = document.createElement('p');
+  messageElement.textContent = message;
+  messageDisplay.append(messageElement);
 }
