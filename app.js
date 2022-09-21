@@ -68,13 +68,36 @@ keys.forEach(key => {
 
 function handleClick(key) {
   console.log('clicked', key);
+  if (key === '«') {
+    deleteLetter();
+    console.log('guessRows', guessRows);
+    return;
+  }
+  if (key === 'ENTER') {
+    console.log('check row');
+    console.log('guessRows', guessRows);
+    return;
+  }
   addLetter(key);
+  console.log('guessRows', guessRows);
 }
 
 function addLetter(letter) {
-  const selectedTile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile);
-  selectedTile.textContent = letter;
-  guessRows[currentRow][currentTile] = letter;
-  currentTile++;
-  console.log('guessRow', guessRows);
+  if (currentTile < 5 && currentRow < 6) {
+    const selectedTile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile);
+    selectedTile.textContent = letter;
+    guessRows[currentRow][currentTile] = letter;
+    selectedTile.setAttribute("data", letter);
+    currentTile++;
+  }
+}
+
+function deleteLetter() {
+  if (currentTile > 0) {
+    currentTile--;
+    const selectedTile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile);
+    selectedTile.textContent = '';
+    guessRows[currentRow][currentTile] = '';
+    selectedTile.setAttribute("data", '');
+  }
 }
