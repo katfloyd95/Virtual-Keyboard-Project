@@ -72,7 +72,9 @@ function handleClick(key) {
 }
 
 function addLetter(letter) {
-  console.log("letter added");
   const selectedTile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile);
   selectedTile.textContent = letter;
+  guessRows[currentRow][currentTile] = letter;
+  currentTile++;
+  console.log('guessRow', guessRows);
 }
