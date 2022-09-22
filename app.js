@@ -143,7 +143,6 @@ function addColorToKey(keyLetter, color) {
 
 function flipTile() {
   const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes;
-  let guess = []
   rowTiles.forEach((tile, index) => {
     const dataLetter = tile.getAttribute('data');
 
