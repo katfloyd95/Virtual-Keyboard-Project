@@ -11,7 +11,6 @@ const getWordle = function() {
     console.log(json);
     wordle = json.toUpperCase();
   })
-  .catch(err => console.log(err));
 }
 
 getWordle();
@@ -81,19 +80,21 @@ keys.forEach(key => {
 })
 
 function handleClick(key) {
-  console.log('clicked', key);
-  if (key === '«') {
-    deleteLetter();
+  if (!isGameOver) {
+    console.log('clicked', key);
+    if (key === '«') {
+      deleteLetter();
+      console.log('guessRows', guessRows);
+      return;
+    }
+    if (key === 'ENTER') {
+      checkRow();
+      console.log('guessRows', guessRows);
+      return;
+    }
+    addLetter(key);
     console.log('guessRows', guessRows);
-    return;
   }
-  if (key === 'ENTER') {
-    checkRow();
-    console.log('guessRows', guessRows);
-    return;
-  }
-  addLetter(key);
-  console.log('guessRows', guessRows);
 }
 
 function addLetter(letter) {
@@ -118,25 +119,36 @@ function deleteLetter() {
 
 function checkRow() {
   const guess = guessRows[currentRow].join('');
+  console.log('guess', guess);
 
   if (currentTile > 4) {
-    console.log('guess is ' + guess, 'wordle is ' + wordle);
-    flipTile();
-    if (wordle == guess) {
-      showMessage('Correct!');
-      isGameOver = true;
-      return;
-    } else {
-      if (currentRow >= 5) {
-        isGameOver = true;
-        showMessage('Game Over');
-        return;
-      }
-      if (currentRow < 5) {
-        currentRow++;
-        currentTile = 0;
-      }
-    }
+    fetch(`http://localhost:8000/check/?word=${guess}`)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        if (json == 'Entry word not found') {
+          showMessage("Word not in list");
+          return;
+        } else {
+          console.log('guess is ' + guess, 'wordle is ' + wordle);
+          flipTile();
+          if (wordle == guess) {
+            showMessage('Correct!');
+            isGameOver = true;
+            return;
+          } else {
+            if (currentRow >= 5) {
+              isGameOver = true;
+              showMessage('Game Over');
+              return;
+            }
+            if (currentRow < 5) {
+              currentRow++;
+              currentTile = 0;
+            }
+          }
+        }
+      })
   }
 }
 
